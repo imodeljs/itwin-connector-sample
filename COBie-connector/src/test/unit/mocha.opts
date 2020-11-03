@@ -1,0 +1,5 @@
+--require ts-node/register
+--require jsdom-global/register
+--require ignore-styles
+--check-leaks
+--no-timeouts

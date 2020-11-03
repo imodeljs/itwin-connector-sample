@@ -1,0 +1,6 @@
+*.db
+lib/
+bin/
+include/
+lib64*
+share/
