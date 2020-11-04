@@ -12,7 +12,7 @@ Overview
 * Based on open source SQLite relational database format
 * Backbone for iTwins
 
-Detailed Look
+Details
 
 * An iModel is a specialized information container for exchanging data associated with the lifecycle of infrastructure assets. 
 * iModels are self-describing, geometrically precise, open, portable, and secure. 
@@ -54,7 +54,7 @@ There are three main steps that a connector needs to undertake to bring data int
 - Transform and align the data to the digital twin.
 - Generate [changesets](https://github.com/imodeljs/imodeljs/tree/master/docs/learning/IModelHub/index.md#the-timeline-of-changes-to-an-imodel) and load data into an iModel.
 
-**Cobie Connector**
+**COBie Connector**
 As part of this [repository](https://github.com/imodeljs/imodel-connector-sample), an iTwin connector that synchronizes data from COBie sheets is provided as a sample. The sections below give a high level overview of the various parts that go into creating an iTwin Connector. More information about the implementation of the sample can be found inside COBie-connector [readme](./cOBie-connector/README.md). 
 
 ### Extract
@@ -154,10 +154,10 @@ Infer deletions:
       - Delete the data in the iModel
       - Remove the the source data item's Id from the mappings
 
-In case of cobie connector, the above algorithm implemented inside the [align method of DataAligner](https://github.com/imodeljs/itwin-connector-sample/src/DataAligner.ts)
+In case of COBie connector, the above algorithm implemented inside the [align method of DataAligner](https://github.com/imodeljs/itwin-connector-sample/src/DataAligner.ts)
 
 ## Execution Sequence
-The ultimate purpose of a connector is to synchronize an iModel with the data in one or more source documents. That involves not only converting data but also authroization, communicating with an iModel server, and concurrency control. iModel.js defines a framework in which the connector itself can focus on the tasks of extraction, alignment, and change-detection. The other tasks are handled by classes provided by iModel.js. The framework is implemented by the BridgeRunner class. A BridgeRunner conducts the overall synchronization process. It loads and calls functions on a connector at the appropriate points in the sequence. The process may be summarized as follows:
+The ultimate purpose of a connector is to synchronize an iModel with the data in one or more source documents. That involves not only converting data but also authorization, communicating with an iModel server, and concurrency control. iModel.js defines a framework in which the connector itself can focus on the tasks of extraction, alignment, and change-detection. The other tasks are handled by classes provided by iModel.js. The framework is implemented by the BridgeRunner class. A BridgeRunner conducts the overall synchronization process. It loads and calls functions on a connector at the appropriate points in the sequence. The process may be summarized as follows:
 
 - BridgeRunner: [Opens a local briefcase copy](https://github.com/imodeljs/imodeljs/tree/master/docs/learning/backend/IModelDb.md) of the iModel that is to be updated.
 - Import or Update Schema
