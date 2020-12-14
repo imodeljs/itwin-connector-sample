@@ -44,7 +44,7 @@ Note: Please keep in mind iModelBridge is sometimes used as a synonym for iTwin 
 
 **COBie Connector**
 
-"How to write an iTwin Connector" gives a high level overview of the various parts that go into creating an iTwin Connector.
+[How to write an iTwin Connector](https://github.com/imodeljs/imodeljs/tree/master/docs/learning/WriteABridge.md) provides a high level overview of the various parts that go into creating an iTwin Connector.
 
 Exceptions to the overview above which were made for the COBie connector are organized similarly below: Extract, Align, 
 
