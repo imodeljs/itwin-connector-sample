@@ -3,17 +3,19 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 
+import * as hash from "object-hash";
 import { Id64String } from "@bentley/bentleyjs-core";
-import { Code, CodeSpec, Placement3d, AxisAlignedBox3d, RelatedElement } from "@bentley/imodeljs-common";
-import { IModelDb, SpatialCategory, DrawingCategory } from "@bentley/imodeljs-backend";
-import { ItemState, SourceItem, ChangeResults, SynchronizationResults } from "@bentley/imodel-bridge/lib/Synchronizer";
-import * as COBieElements from "./COBieElements";
-import * as COBieRelationships from "./COBieRelationships";
-import * as COBieRelatedElements from "./COBieRelatedElements";
+import { ChangeResults, ItemState, SourceItem, SynchronizationResults } from "@bentley/imodel-bridge/lib/Synchronizer";
+import { DrawingCategory, IModelDb, SpatialCategory } from "@bentley/imodeljs-backend";
+import {
+  AxisAlignedBox3d, Code, CodeSpec, Placement3d, RelatedElement
+} from "@bentley/imodeljs-common";
 import { COBieConnector } from "./COBieConnector";
+import * as COBieElements from "./COBieElements";
+import * as COBieRelatedElements from "./COBieRelatedElements";
+import * as COBieRelationships from "./COBieRelationships";
 import { DataFetcher } from "./DataFetcher";
 import { DynamicSchemaGenerator } from "./DynamicSchemaGenerator";
-import * as hash from "object-hash";
 import { PropertyRenameReverseMap } from "./schema/COBieSchemaConfig";
 
 export class DataAligner {
@@ -121,7 +123,7 @@ export class DataAligner {
         const relationship = this.imodel.relationships.tryGetInstance(relationshipClass.ref.classFullName, { sourceId, targetId });
         if (relationship) continue;
         const relationshipProps = relationshipClass.ref.createProps(sourceId, targetId);
-        const relationshipId = this.imodel.relationships.insertInstance(relationshipProps);
+        this.imodel.relationships.insertInstance(relationshipProps);
       }
     }
   }

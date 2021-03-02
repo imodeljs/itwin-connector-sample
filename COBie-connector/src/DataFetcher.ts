@@ -3,10 +3,10 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 
-import { IModelStatus } from "@bentley/bentleyjs-core";
-import { IModelError } from "@bentley/imodeljs-common";
-import * as sqlite3 from "sqlite3";
-import * as sqlite from "sqlite";
+import * as sqlite from 'sqlite';
+import * as sqlite3 from 'sqlite3';
+import { IModelStatus } from '@bentley/bentleyjs-core';
+import { IModelError } from '@bentley/imodeljs-common';
 
 export class DataFetcher {
   public sourcePath: string;

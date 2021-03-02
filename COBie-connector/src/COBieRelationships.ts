@@ -3,8 +3,8 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 
-import { ElementRefersToElements, ElementGroupsMembers } from "@bentley/imodeljs-backend";
-import { Id64String } from "@bentley/bentleyjs-core";
+import { Id64String } from '@bentley/bentleyjs-core';
+import { ElementGroupsMembers, ElementRefersToElements } from '@bentley/imodeljs-backend';
 
 export class ComponentConnectsToComponent extends ElementRefersToElements {
   public static get className(): string { return "ComponentConnectsToComponent"; }

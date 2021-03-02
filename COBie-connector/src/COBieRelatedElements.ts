@@ -3,11 +3,11 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 
-import { PhysicalElementAssemblesElements } from "@bentley/imodeljs-backend";
-import { RelatedElement, RelatedElementProps } from "@bentley/imodeljs-common";
-import { Id64String } from "@bentley/bentleyjs-core";
-import * as COBieElements from "./COBieElements";
-import * as COBieRelatedElements from "./COBieRelatedElements";
+import { Id64String } from '@bentley/bentleyjs-core';
+import { PhysicalElementAssemblesElements } from '@bentley/imodeljs-backend';
+import { RelatedElement, RelatedElementProps } from '@bentley/imodeljs-common';
+import * as COBieElements from './COBieElements';
+import * as COBieRelatedElements from './COBieRelatedElements';
 
 export class ComponentAssemblesComponents extends PhysicalElementAssemblesElements {
   public static get className(): string { return "ComponentAssemblesComponents"; }

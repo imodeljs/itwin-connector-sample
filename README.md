@@ -1,5 +1,7 @@
 # iTwin Connector
 
+Copyright © Bentley Systems, Incorporated. All rights reserved. See [LICENSE.md](./LICENSE) for license terms and full copyright notice.
+
 ## What is an iTwin?
 
 An iTwin is an infrastructure digital twin.
@@ -14,9 +16,9 @@ Overview
 
 Details
 
-* An iModel is a specialized information container for exchanging data associated with the lifecycle of infrastructure assets. 
-* iModels are self-describing, geometrically precise, open, portable, and secure. 
-* iModels were created to facilitate the sharing and distribution of information regardless of the source and format of the information. 
+* An iModel is a specialized information container for exchanging data associated with the lifecycle of infrastructure assets.
+* iModels are self-describing, geometrically precise, open, portable, and secure.
+* iModels were created to facilitate the sharing and distribution of information regardless of the source and format of the information.
 * iModels are an essential part of the digital twin world. But a digital twin means a lot more than just an iModel.
 
 ## iTwin Connectors
@@ -98,8 +100,8 @@ As discussed in [Element Fundamentals](https://github.com/imodeljs/imodeljs/tree
 1. If the UserLabel property is set, it is taken as the Display Label.
 2. If the CodeValue is set (and the UserLabel is not set), the CodeValue becomes the Display Label.
 3. If neither UserLabel nor CodeValue is set, then a default Display Label is generated from the following data:
-   - Class Name
-   - Associated Type's Name (if any)
+    - Class Name
+    - Associated Type's Name (if any)
 
 iTwin Connector data transformations should be written considering the Display Label logic; UserLabel is the appropriate property for a connector to set to control the Display Label (CodeValue should never be set for anything other than coding purposes).
 
@@ -114,11 +116,11 @@ If the source application data has a property that conceptually matches the BIS 
 
 Rather than starting over when the source data changes, a connector should be able to detect and convert only the changes. That makes for compact, meaningful changesets, which are added to the iModel's [timeline](https://github.com/imodeljs/imodeljs/tree/master/docs/learning/IModelHub/index.md#the-timeline-of-changes-to-an-imodel).
 
-To do incremental updates, a connector must do Id mapping and change-detection. An iTwin Connector uses the ExternalSourceAspect class defined in the BIS schema to acheive both. The following sections describe how this is acheived. 
+To do incremental updates, a connector must do Id mapping and change-detection. An iTwin Connector uses the ExternalSourceAspect class defined in the BIS schema to acheive both. The following sections describe how this is achieved.
 
 **Provenance**
 
-Id mapping is a way of looking up the data in the iModel that corresponds to a given piece of source data. If the source data has stable, unique IDs, then Id mapping could be straightforward. 
+Id mapping is a way of looking up the data in the iModel that corresponds to a given piece of source data. If the source data has stable, unique IDs, then Id mapping could be straightforward.
 
 For COBie data, this sample connector uses a combination of sheet name and unique row name to map data into the iModel. See [updateElementClass](https://github.com/imodeljs/imodel-connector-sample/src/DataAligner.ts) function in the provided sample. When the identifier is provided to the synchronizer, it is stored inside the ExternalSourceAspect class, in the Identifier property.
 
@@ -126,7 +128,7 @@ Note: If the source data does not have stable, unique IDs, then the connector wi
 
 **Change-detection**
 
-Change-detection is a way of detecting changes in the source data. 
+Change-detection is a way of detecting changes in the source data.
 
 If the source data is timestamped in some way, then the change-detection logic should be easy. The connector just has to save the highest timestamp at the end of the conversion and then look for source data with later timestamps the next time it runs.
 
@@ -185,7 +187,7 @@ More on synchronization using connectors could be found [here](https://communiti
 
 ## More information
 
-For more indepth information please see:
+For more in-depth information please see:
 
 - [Importing a schema and bootstrapping definitions](https://github.com/imodeljs/imodeljs/tree/master/docs/learning/backend/SchemasAndElementsInTypeScript.md#importing-the-schema)
 - [AccessToken](https://github.com/imodeljs/imodeljs/tree/master/docs/learning/common/AccessToken.md)

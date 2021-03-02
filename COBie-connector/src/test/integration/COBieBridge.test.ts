@@ -11,7 +11,7 @@ import { ServerArgs } from "@bentley/imodel-bridge/lib/IModelHubUtils";
 import { ConnectorTestUtils, TestIModelInfo } from "../ConnectorTestUtils";
 import { BriefcaseDb, BriefcaseManager, IModelJsFs } from "@bentley/imodeljs-backend";
 import { AccessToken, AuthorizedClientRequestContext } from "@bentley/itwin-client";
-import { BentleyStatus, ClientRequestContext, Logger, OpenMode } from "@bentley/bentleyjs-core";
+import { BentleyStatus, ClientRequestContext, Logger } from "@bentley/bentleyjs-core";
 import { KnownTestLocations } from "../KnownTestLocations";
 import { HubUtility } from "../HubUtility";
 
@@ -20,12 +20,8 @@ describe("COBie Sample Connector Integration Test (Online)", () => {
   let testProjectId: string;
   let requestContext: AuthorizedClientRequestContext;
   let sampleIModel: TestIModelInfo;
-  const fs = require("fs");
-  // let managerRequestContext: AuthorizedClientRequestContext;
 
   before(async () => {
-    // ConnectorTestUtils.setupLogging();
-    // ConnectorTestUtils.setupDebugLogLevels();
     await ConnectorTestUtils.startBackend();
 
     if (!IModelJsFs.existsSync(KnownTestLocations.outputDir))
@@ -40,10 +36,6 @@ describe("COBie Sample Connector Integration Test (Online)", () => {
     const targetIModelId = await HubUtility.recreateIModel(requestContext, testProjectId, "TestSampleConnector");
     expect(undefined !== targetIModelId);
     sampleIModel = await ConnectorTestUtils.getTestModelInfo(requestContext, testProjectId, "TestSampleConnector");
-
-    // Purge briefcases that are close to reaching the acquire limit
-    // managerRequestContext = await TestUtility.getAuthorizedClientRequestContext(TestUsers.manager);
-    // await HubUtility.purgeAcquiredBriefcases(managerRequestContext, "imodeljs_sampleConnector_test", "TestSampleConnector");
   });
 
   after(async () => {
@@ -56,13 +48,10 @@ describe("COBie Sample Connector Integration Test (Online)", () => {
     const runner = new BridgeRunner(bridgeJobDef, serverArgs);
     const status = await runner.synchronize();
     expect(status === BentleyStatus.SUCCESS);
-    const briefcases = BriefcaseManager.getBriefcases();
-    const briefcaseEntry = BriefcaseManager.findBriefcaseByKey(briefcases[0].key);
-    expect(briefcaseEntry !== undefined);
-    let imodel: BriefcaseDb;
-    imodel = await BriefcaseDb.open(new ClientRequestContext(), briefcases[0].key, { openAsReadOnly: true });
+    const briefcases = BriefcaseManager.getCachedBriefcases(serverArgs.iModelId);
+    expect(briefcases !== undefined);
+    const imodel = await BriefcaseDb.open(new ClientRequestContext(), { fileName: briefcases[0].fileName, readonly: true });
     ConnectorTestUtils.verifyIModel(imodel, bridgeJobDef, isUpdate, isSchemaUpdate);
-    briefcaseEntry!.openMode = OpenMode.ReadWrite;
     imodel.close();
   };
 
@@ -70,7 +59,7 @@ describe("COBie Sample Connector Integration Test (Online)", () => {
     const bridgeJobDef = new BridgeJobDefArgs();
     const testSourcePath = path.join(KnownTestLocations.assetsDir, "test.db");
     bridgeJobDef.sourcePath = testSourcePath;
-    bridgeJobDef.bridgeModule = path.join(__dirname, "..\\..\\COBieBridge.js");
+    bridgeJobDef.bridgeModule = path.join(__dirname, "..", "..", "COBieBridge.js");
     const serverArgs = new ServerArgs();
     serverArgs.contextId = testProjectId;
     serverArgs.iModelId = sampleIModel.id;
@@ -94,16 +83,6 @@ describe("COBie Sample Connector Integration Test (Online)", () => {
     IModelJsFs.copySync(sourcePath, testSourcePath, { overwrite: true });
     await runConnector(bridgeJobDef, serverArgs, false, false);
   });
-
-  /*
-  it("should update the data in an iModel", async () => {
-    const { testSourcePath, bridgeJobDef, serverArgs } = await getEnv();
-    const sourcePath = path.join(KnownTestLocations.assetsDir, "intermediary_v2.db");
-    IModelJsFs.unlinkSync(testSourcePath);
-    IModelJsFs.copySync(sourcePath, testSourcePath, { overwrite: true });
-    await runBridge(bridgeJobDef, serverArgs, true, false);
-  });
-  */
 
   it("should update both data and schema of an iModel", async () => {
     const { testSourcePath, bridgeJobDef, serverArgs } = await getEnv();

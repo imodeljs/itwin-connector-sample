@@ -3,10 +3,13 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 
-import { IModelDb, InformationRecordElement, PhysicalType, GroupInformationElement, FunctionalElement, ElementMultiAspect, Document as BisCoreDocument, ElementAspect, GeometricModel3d, PhysicalElement, SpatialElement, GeometricElement3d } from "@bentley/imodeljs-backend";
-import { Code, Placement3d } from "@bentley/imodeljs-common";
-import { Point3d, YawPitchRollAngles, Range3d } from "@bentley/geometry-core";
-import { Id64String } from "@bentley/bentleyjs-core";
+import { Id64String } from '@bentley/bentleyjs-core';
+import { Point3d, Range3d, YawPitchRollAngles } from '@bentley/geometry-core';
+import {
+  Document as BisCoreDocument, GroupInformationElement, IModelDb, InformationRecordElement,
+  PhysicalElement, PhysicalType, SpatialElement
+} from '@bentley/imodeljs-backend';
+import { Code, Placement3d } from '@bentley/imodeljs-common';
 
 export enum CodeSpecs {
   COBie = "COBieConnectorDynamicCOBie",
