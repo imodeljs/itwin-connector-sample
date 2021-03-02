@@ -15,13 +15,32 @@ In the second phase, the COBie Connector reads the intermediary SQLite database 
 
 ## How to Run It
 
-You may find the sample COBie Excel data under COBie-extractor/extractor/input/*. [Sample Data Source](https://www.nibs.org/page/bsa_commonbimfiles)
+You may find the sample COBie Excel data under `COBie-extractor/extractor/input/*`. [Sample Data Source](https://www.nibs.org/page/bsa_commonbimfiles)
 
-1. Execute COBie-extractor (see see how to inside COBie-extractor/README.md)
-2. Move the output of COBie extractor (intermediary SQLite DB's) to COBie-connector/test/assets/ (or execute "sh transferdb" if you are on Linux / WSL)
+1. Execute COBie-extractor (see how to inside [COBie-extractor/README.md](../COBie-extractor/README.md))
+2. Move the output of COBie extractor (intermediary SQLite DB's) to `COBie-connector/test/assets/`
+    - Execute `sh transferdb` on Linux/WSL
 3. Run "npm install"
-4. Run "npm run test:unit" (output iModel will be COBie-connector/test/output/final.db) This produces the iModel snapshot.
-5. To run the connector against a live iModel, run "npm run build" and "npm run test:integration" that will test if the Connector updates iModel data and schema.
+4. Run "npm run build"
+5. Run "npm run test:unit". The output [Snapshot iModel](https://www.itwinjs.org/learning/backend/accessingimodels/?term=snapsh#snapshot-imodels) will be at `COBie-connector/test/output/final.db`).
+6. Run the connector against a live iModel, run `npm run test:integration`. It will test if the Connector updates the iModel data and schema.
+    - The provided Connector tests almost work right out of the box, but you'll need to configure it with your Context, iModel, and OIDC information. To do this, just create a .env file at the project root with the following:
+
+      ```sh
+      ###############################################################################
+      # This file contains secrets - don't commit or share it!
+      ###############################################################################
+      TEST_USER_EMAIL=
+      TEST_USER_PASSWORD=
+
+      CLIENT_ID=
+      CLIENT_REDIRECT_URI=
+
+      # The CONTEXT to put the new iModel.
+      CONTEXT_ID=
+      ```
+
+      Your CLIENT_ID and CLIENT_REDIRECT_URI should both come from the iTwin Platform registration - be sure to create a "SPA" app with Visualization enabled!
 
 ## Architecture
 

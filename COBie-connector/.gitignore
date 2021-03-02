@@ -3,3 +3,4 @@
 *.bim*
 lib/
 node_modules/
+.env

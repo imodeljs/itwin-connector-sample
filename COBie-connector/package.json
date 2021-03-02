@@ -36,6 +36,7 @@
     "bunyan": "^1.8.13",
     "bunyan-seq": "^0.2.0",
     "draco3d": "^1.3.6",
+    "dotenv": "^8.2.0",
     "open": "^7.1.0",
     "request-promise": "^4.2.6",
     "sqlite": "^4.0.12",
