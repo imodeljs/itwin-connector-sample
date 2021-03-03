@@ -50,6 +50,8 @@ describe("COBie Sample Connector Integration Test (Online)", () => {
       Logger.logError("Error", `Failed with error: ${error}`);
     }
 
+    testProjectId = testConfig.CONTEXT_ID;
+
     const targetIModelId = await HubUtility.recreateIModel(requestContext, testConfig.CONTEXT_ID, "TestSampleConnector");
     expect(undefined !== targetIModelId);
     sampleIModel = await ConnectorTestUtils.getTestModelInfo(requestContext, testConfig.CONTEXT_ID, "TestSampleConnector");
