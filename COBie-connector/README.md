@@ -36,11 +36,11 @@ You may find the sample COBie Excel data under `COBie-extractor/extractor/input/
       CLIENT_ID=
       CLIENT_REDIRECT_URI=
 
-      # The CONTEXT to put the new iModel.
+      # The CONTEXT to create the new iModel.
       CONTEXT_ID=
       ```
 
-      Your CLIENT_ID and CLIENT_REDIRECT_URI should both come from the iTwin Platform registration - be sure to create a "SPA" app with Visualization enabled!
+      Your CLIENT_ID and CLIENT_REDIRECT_URI should both come from the [iTwin Platform App registration](https://developer.bentley.com/my-apps) - be sure to create a "SPA" app with Visualization enabled!
 
 ## Architecture
 
