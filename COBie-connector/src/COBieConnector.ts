@@ -3,20 +3,20 @@
  * See LICENSE.md in the project root for license terms and full copyright notice.
  *--------------------------------------------------------------------------------------------*/
 
-import { BentleyStatus, ClientRequestContext, IModelStatus, Logger } from "@bentley/bentleyjs-core";
-import { AuthorizedClientRequestContext } from "@bentley/itwin-client";
-import { CodeSpec, CodeScopeSpec, IModelError } from "@bentley/imodeljs-common";
-import { IModelBridge, loggerCategory } from "@bentley/imodel-bridge";
-import { IModelDb, IModelJsFs } from "@bentley/imodeljs-backend";
-import { Schema } from "@bentley/ecschema-metadata";
+import * as path from 'path';
+import { BentleyStatus, ClientRequestContext, IModelStatus, Logger } from '@bentley/bentleyjs-core';
+import { Schema } from '@bentley/ecschema-metadata';
+import { IModelBridge } from '@bentley/imodel-bridge';
 import { ItemState, SourceItem, SynchronizationResults } from "@bentley/imodel-bridge/lib/Synchronizer";
-import { DataFetcher } from "./DataFetcher";
-import { DataAligner } from "./DataAligner";
-import { SAMPLE_ELEMENT_TREE } from "./COBieElementTree";
-import { DynamicSchemaGenerator, SchemaSyncResults } from "./DynamicSchemaGenerator";
-import { CodeSpecs } from "./COBieElements";
-import { COBieSchema } from "./COBieSchema";
-import * as path from "path";
+import { IModelDb, IModelJsFs } from '@bentley/imodeljs-backend';
+import { CodeScopeSpec, CodeSpec, IModelError } from '@bentley/imodeljs-common';
+import { AuthorizedClientRequestContext } from '@bentley/itwin-client';
+import { CodeSpecs } from './COBieElements';
+import { SAMPLE_ELEMENT_TREE } from './COBieElementTree';
+import { COBieSchema } from './COBieSchema';
+import { DataAligner } from './DataAligner';
+import { DataFetcher } from './DataFetcher';
+import { DynamicSchemaGenerator, SchemaSyncResults } from './DynamicSchemaGenerator';
 
 export class COBieConnector extends IModelBridge {
   public sourceDataState: ItemState = ItemState.New;
@@ -28,14 +28,14 @@ export class COBieConnector extends IModelBridge {
   public initialize(_params: any) {}
   public async initializeJob(): Promise<void> {}
 
-  public async openSourceData(sourcePath: string): Promise<BentleyStatus> {
+  public async openSourceData(sourcePath: string): Promise<void> {
     this.sourceDataPath = sourcePath;
     const sourceDataStatus = this.getSourceDataStatus();
     this.sourceDataState = sourceDataStatus.itemState;
-    if (this.sourceDataState === ItemState.Unchanged) return BentleyStatus.SUCCESS;
+    if (this.sourceDataState === ItemState.Unchanged)
+      return;
     this.dataFetcher = new DataFetcher(sourcePath);
     await this.dataFetcher.initialize();
-    return BentleyStatus.SUCCESS;
   }
 
   public async importDomainSchema(_requestContext: AuthorizedClientRequestContext | ClientRequestContext): Promise<any> {
@@ -96,7 +96,7 @@ export class COBieConnector extends IModelBridge {
     const sourceDataStatus = this.synchronizer.recordDocument(IModelDb.rootSubjectId, sourceItem);
     if (undefined === sourceDataStatus) {
       const error = `Failed to retrieve a RepositoryLink for ${this.sourceDataPath}`;
-      throw new IModelError(IModelStatus.BadArg, error, Logger.logError, loggerCategory);
+      throw new IModelError(IModelStatus.BadArg, error, Logger.logError, "COBie-Connector");
     }
     return sourceDataStatus;
   }

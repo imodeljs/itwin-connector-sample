@@ -3,14 +3,20 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 
-import { IModelDb } from "@bentley/imodeljs-backend";
-import { Schema, PrimitiveType, SchemaContextEditor, SchemaContext, SchemaComparer, ISchemaCompareReporter, SchemaChanges, ISchemaChanges, AnyDiagnostic } from "@bentley/ecschema-metadata";
-import { IModelSchemaLoader } from "@bentley/imodeljs-backend/lib/IModelSchemaLoader";
-import { MutableSchema } from "@bentley/ecschema-metadata/lib/Metadata/Schema";
-import { ItemState } from "@bentley/imodel-bridge/lib/Synchronizer";
-import { DOMParser, XMLSerializer } from "xmldom";
-import { DataFetcher } from "./DataFetcher";
-import { PropertyRenameMap, PropertyTypeMap, COBieBaseEntityProps, COBieEntityPropMap, COBieRelationshipProps } from "./schema/COBieSchemaConfig";
+import { DOMParser, XMLSerializer } from 'xmldom';
+import {
+  AnyDiagnostic, ISchemaChanges, ISchemaCompareReporter, PrimitiveType, Schema, SchemaChanges,
+  SchemaComparer, SchemaContext, SchemaContextEditor
+} from '@bentley/ecschema-metadata';
+import { MutableSchema } from '@bentley/ecschema-metadata/lib/Metadata/Schema';
+import { ItemState } from '@bentley/imodel-bridge/lib/Synchronizer';
+import { IModelDb } from '@bentley/imodeljs-backend';
+import { IModelSchemaLoader } from '@bentley/imodeljs-backend/lib/IModelSchemaLoader';
+import { DataFetcher } from './DataFetcher';
+import {
+  COBieBaseEntityProps, COBieEntityPropMap, COBieRelationshipProps, PropertyRenameMap,
+  PropertyTypeMap
+} from './schema/COBieSchemaConfig';
 
 export class DynamicSchemaGenerator {
   public dataFetcher: DataFetcher;
@@ -22,7 +28,7 @@ export class DynamicSchemaGenerator {
   public async synchronizeSchema(imodel: IModelDb): Promise<SchemaSyncResults> {
     const createBaseClasses = async (editor: SchemaContextEditor, schema: Schema) => {
       for (const entityProp of COBieBaseEntityProps) {
-        const baseInsertResult = await editor.entities.createFromProps(schema.schemaKey, entityProp);
+        await editor.entities.createFromProps(schema.schemaKey, entityProp);
       }
     };
 
@@ -32,7 +38,7 @@ export class DynamicSchemaGenerator {
         const propertyName: string = PropertyRenameMap.hasOwnProperty(col.name) ? PropertyRenameMap[col.name] : col.name;
         const propertyType: any = PropertyTypeMap.hasOwnProperty(propertyName) ? PropertyTypeMap[propertyName] : { typeName: "string", typeValue: PrimitiveType.String };
         const property = { name: propertyName, type: "PrimitiveProperty", typeName: propertyType.typeName };
-        const propertyInsertResult = await editor.entities.createPrimitivePropertyFromProps(
+        await editor.entities.createPrimitivePropertyFromProps(
           entityInsertResult.itemKey!,
           propertyName,
           propertyType.typeValue,
@@ -53,7 +59,7 @@ export class DynamicSchemaGenerator {
 
     const createRelationshipClasses = async (editor: SchemaContextEditor, schema: Schema) => {
       for (const relationshipClassProps of COBieRelationshipProps) {
-        const relationshipInsertResult = await editor.relationships.createFromProps(schema.schemaKey, relationshipClassProps);
+        await editor.relationships.createFromProps(schema.schemaKey, relationshipClassProps);
       }
     };
 

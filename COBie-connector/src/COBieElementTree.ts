@@ -3,11 +3,15 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 
-import { Subject, DefinitionPartition, DefinitionModel, PhysicalPartition, PhysicalModel, SpatialLocationPartition, SpatialLocationModel, SpatialCategory,
-  InformationRecordPartition, InformationRecordModel, DocumentPartition, DocumentListModel, GroupInformationPartition, GroupModel } from "@bentley/imodeljs-backend";
-import * as COBieElements from "./COBieElements";
-import * as COBieRelationships from "./COBieRelationships";
-import * as COBieRelatedElements from "./COBieRelatedElements";
+import {
+  DefinitionModel, DefinitionPartition, DocumentListModel, DocumentPartition,
+  GroupInformationPartition, GroupModel, InformationRecordModel, InformationRecordPartition,
+  PhysicalModel, PhysicalPartition, SpatialCategory, SpatialLocationModel,
+  SpatialLocationPartition, Subject
+} from '@bentley/imodeljs-backend';
+import * as COBieElements from './COBieElements';
+import * as COBieRelatedElements from './COBieRelatedElements';
+import * as COBieRelationships from './COBieRelationships';
 
 /*
 

@@ -3,25 +3,20 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 
-import { IModelJsFs, IModelHost, SnapshotDb, Subject, IModelDb } from "@bentley/imodeljs-backend";
-import { AuthorizedClientRequestContext, AccessToken } from "@bentley/itwin-client";
-import { Synchronizer } from "@bentley/imodel-bridge/lib/Synchronizer";
-import * as path from "path";
-import { ConnectorTestUtils } from "../ConnectorTestUtils";
-import { KnownTestLocations } from "../KnownTestLocations";
-import { COBieConnector } from "../../COBieConnector";
-import { BridgeJobDefArgs } from "@bentley/imodel-bridge";
+import * as path from 'path';
+import { BridgeJobDefArgs } from '@bentley/imodel-bridge';
+import { Synchronizer } from '@bentley/imodel-bridge/lib/Synchronizer';
+import { IModelDb, IModelHost, IModelJsFs, SnapshotDb, Subject } from '@bentley/imodeljs-backend';
+import { AccessToken, AuthorizedClientRequestContext } from '@bentley/itwin-client';
+import { COBieConnector } from '../../COBieConnector';
+import { ConnectorTestUtils } from '../ConnectorTestUtils';
+import { KnownTestLocations } from '../KnownTestLocations';
 
 describe("COBie Sample Connector Unit Tests", () => {
-  before(async () => {
-    // ConnectorTestUtils.setupLogging();
-    // ConnectorTestUtils.setupDebugLogLevels();
-    // if (!IModelJsFs.existsSync(KnownTestLocations.outputDir)) IModelJsFs.mkdirSync(KnownTestLocations.outputDir);
-    // await ConnectorTestUtils.startBackend();
-  });
 
-  after(async () => {
-    // await ConnectorTestUtils.shutdownBackend();
+  before(() => {
+    if (!IModelJsFs.existsSync(KnownTestLocations.outputDir))
+      IModelJsFs.mkdirSync(KnownTestLocations.outputDir);
   });
 
   beforeEach(async () => {

@@ -3,21 +3,25 @@
 * See LICENSE.md in the project root for license terms and full copyright notice.
 *--------------------------------------------------------------------------------------------*/
 
-import { AuthorizedClientRequestContext, ITwinClientLoggerCategory } from "@bentley/itwin-client";
-import { BentleyLoggerCategory, Config, DbResult, Id64, Id64String, Logger, LogLevel } from "@bentley/bentleyjs-core";
-import { IModelJsConfig } from "@bentley/config-loader/lib/IModelJsConfig";
-import { ChangeSet, IModelHubClientLoggerCategory } from "@bentley/imodelhub-client";
-import { BackendLoggerCategory, BriefcaseManager, ECSqlStatement, ExternalSourceAspect, IModelDb, IModelHost, IModelHostConfiguration, IModelJsFs, NativeLoggerCategory, PhysicalPartition, Subject } from "@bentley/imodeljs-backend";
-import { BridgeJobDefArgs } from "@bentley/imodel-bridge";
-import * as path from "path";
 import { assert } from "chai";
-import { KnownTestLocations } from "./KnownTestLocations";
-import { IModelBankArgs, IModelBankUtils } from "@bentley/imodel-bridge/lib/IModelBankUtils";
-import { IModelHubUtils } from "@bentley/imodel-bridge/lib/IModelHubUtils";
-import { HubUtility } from "./HubUtility";
-import { BridgeLoggerCategory } from "@bentley/imodel-bridge/lib/BridgeLoggerCategory";
-import * as COBieElement from "../COBieElements";
-import { IModel } from "@bentley/imodeljs-common";
+import * as path from "path";
+import {
+  BentleyLoggerCategory, DbResult, Id64, Id64String, Logger, LogLevel
+} from '@bentley/bentleyjs-core';
+import { BridgeJobDefArgs } from '@bentley/imodel-bridge';
+import { BridgeLoggerCategory } from '@bentley/imodel-bridge/lib/BridgeLoggerCategory';
+import { IModelBankArgs, IModelBankUtils } from '@bentley/imodel-bridge/lib/IModelBankUtils';
+import { IModelHubUtils } from '@bentley/imodel-bridge/lib/IModelHubUtils';
+import { ChangeSet, IModelHubClientLoggerCategory } from '@bentley/imodelhub-client';
+import {
+  BackendLoggerCategory, ECSqlStatement, ExternalSourceAspect, IModelDb, IModelHost,
+  IModelHostConfiguration, IModelJsFs, NativeLoggerCategory, PhysicalPartition, Subject
+} from '@bentley/imodeljs-backend';
+import { IModel } from '@bentley/imodeljs-common';
+import { AuthorizedClientRequestContext, ITwinClientLoggerCategory } from '@bentley/itwin-client';
+import * as COBieElement from '../COBieElements';
+import { HubUtility } from './HubUtility';
+import { KnownTestLocations } from './KnownTestLocations';
 
 export class TestIModelInfo {
   private _name: string;
@@ -106,12 +110,11 @@ export class ConnectorTestUtils {
     const iModelInfo = new TestIModelInfo(iModelName);
     iModelInfo.id = await HubUtility.queryIModelIdByName(requestContext, testProjectId, iModelInfo.name);
 
-    iModelInfo.changeSets = await BriefcaseManager.imodelClient.changeSets.get(requestContext, iModelInfo.id);
+    iModelInfo.changeSets = await IModelHost.iModelClient.changeSets.get(requestContext, iModelInfo.id);
     return iModelInfo;
   }
 
   public static async startBackend(clientArgs?: IModelBankArgs): Promise<void> {
-    const result = IModelJsConfig.init(true /* suppress exception */, false /* suppress error message */, Config.App);
     const config = new IModelHostConfiguration();
     config.concurrentQuery.concurrent = 4; // for test restrict this to two threads. Making closing connection faster
     config.cacheDir = KnownTestLocations.outputDir;

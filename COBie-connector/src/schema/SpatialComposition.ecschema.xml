@@ -3,7 +3,7 @@
 |
 |     $Source: SpatialComposition.ecschema.xml $
 |
-|  $Copyright: (c) 2019 Bentley Systems, Incorporated. All rights reserved. $
+|  $Copyright: (c) 2021 Bentley Systems, Incorporated. All rights reserved. $
 |
 ======================================================================================= -->
 <ECSchema schemaName="SpatialComposition" alias="spcomp" version="01.00.00" xmlns="http://www.bentley.com/schemas/Bentley.ECXML.3.1" description="Provision of a spatial structure of the project by aggregating spatial elements.">
