@@ -16,7 +16,10 @@ In the second phase, the COBie Connector reads the intermediary SQLite database 
 
 ## How to Run It
 
-You may find the sample COBie Excel data under COBie-extractor/extractor/input/*. [Sample Data Source](https://www.nibs.org/page/bsa_commonbimfiles)
+COBie stands for "Construction-Operations Building Information Exchange". For background on COBie, please checkout [COBie](https://www.wbdg.org/bim/cobie).  Unfortunately, this site has a bad link to the COBie Excel data used for the extraction step for this example.  To run this the extractor, you must download the COBie example file(s) for the "Duplex Apartment" model into the COBie-extractor/extractor/input/* folder. Two different states of the Duplex Design Data are available for download: [Design](https://portal.nibs.org/files/wl/?id=QG4uSz2tnqDpgx661pXF329h0KMgnG23) and [Handover](https://portal.nibs.org/files/wl/?id=oy5MyBRPiLx7ZmAomBRMgL62o1hi3YLk) 
+
+The makefile is hardcoded to extract four versions of the file: COBieSampleSheetV1.xlsx, COBieSampleSheetV2.xlsx, COBieSampleSheetV3.xlsx, COBieSampleSheetV4.xlsx.  You'll need to make sure the names of the files match the makefile by either editing the makefile or renaming the spreadsheets (easier of two choices).  You'll want to make incremental changes between V1 and V2, V2 and V3 and so on.  Copy V1 to V2 and change the contents of V2 to emulate a change that may happen between states of a project, then copy V2 to V3 and make further changes.
+
 
 1. Execute COBie-extractor (see see how to inside COBie-extractor/README.md)
 2. Move the output of COBie extractor (intermediary SQLite DB's) to COBie-connector/test/assets/ (or execute "sh transferdb" if you are on Linux / WSL)
