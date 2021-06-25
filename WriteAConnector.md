@@ -10,7 +10,7 @@ There are three main steps that a connector needs to undertake to bring data int
 
 - Extract data from the input source
 - Transform and align the data to the digital twin.
-- Generate [changesets](https://github.com/imodeljs/imodeljs/tree/master/docs/learning/IModelHub/index.md#the-timeline-of-changes-to-an-imodel) and load data into an iModel.
+- Generate [changesets](https://github.com/imodeljs/imodeljs/tree/master/docs/learning/iModelHub/index.md#the-timeline-of-changes-to-an-imodel) and load data into an iModel.
 
 The sections below give a high level overview of the various parts that go into creating an iTwin Connector.
 
@@ -40,7 +40,7 @@ The appropriate balancing of these two conflicting goals is not an easy task. Ho
 
 Sometimes BIS domain schemas are not adequate to capture all the data in the authoring application. To avoid losing data, iTwin Connector may dynamically create application-specific schemas whose classes descend from the most appropriate BIS domain classes.
 
-As an iModel Connector always runs multiple times to keep an iModel synchronized, the schemas created by previous executions limit the schemas that can be used by subsequent executions. To provide consistency and enable concise changesets, the Connector adds to the previously-defined schemas (creating new schema versions). This follows the general schema update strategy defined in [Schema Versioning and Generations](https://github.com/imodeljs/imodeljs/blob/master/docs/bis/intro/schema-versioning-and-generations.md)
+As an iModel Connector always runs multiple times to keep an iModel synchronized, the schemas created by previous executions limit the schemas that can be used by subsequent executions. To provide consistency and enable concise changesets, the Connector adds to the previously-defined schemas (creating new schema versions). This follows the general schema update strategy defined in [Schema Versioning and Generations](https://github.com/imodeljs/imodeljs/tree/master/docs/bis/intro/schema-versioning-and-generations.md)
 
 The `DynamicSchema` custom attribute should be set on customer-specific application schemas. This custom attribute can be found in the standard schema `CoreCustomAttributes` and it enables iModelHub to programmatically detect dynamic schemas. Dynamic schemas require special handling since their name and version are typically duplicated between iModels from different work sets.
 
@@ -67,7 +67,7 @@ If the source application data has a property that conceptually matches the BIS 
 
 ## Sync
 
-Rather than starting over when the source data changes, a connector should be able to detect and convert only the changes. That makes for compact, meaningful changesets, which are added to the iModel's [timeline](https://github.com/imodeljs/imodeljs/tree/master/docs/learning/IModelHub/index.md#the-timeline-of-changes-to-an-imodel).
+Rather than starting over when the source data changes, a connector should be able to detect and convert only the changes. That makes for compact, meaningful changesets, which are added to the iModel's [timeline](https://github.com/imodeljs/imodeljs/blob/master/docs/learning/iModelHub/index.md#the-timeline-of-changes-to-an-imodel).
 
 To do incremental updates, a connector must do Id mapping and change-detection. An iTwin Connector uses the ExternalSourceAspect class defined in the BIS schema to acheive both. The following sections describe how this is acheived. 
 
@@ -75,7 +75,7 @@ To do incremental updates, a connector must do Id mapping and change-detection. 
 
 Id mapping is a way of looking up the data in the iModel that corresponds to a given piece of source data. If the source data has stable, unique IDs, then Id mapping could be straightforward. 
 
-See [updateElementClass](https://github.com/imodeljs/imodel-connector-sample/src/DataAligner.ts) function in the provided sample. When the identifier is provided to the synchronizer, it is stored inside the ExternalSourceAspect class, in the Identifier property.
+See [updateElementClass](https://github.com/imodeljs/itwin-connector-sample/blob/main/COBie-connector/src/DataAligner.ts) function in the provided sample. When the identifier is provided to the synchronizer, it is stored inside the ExternalSourceAspect class, in the Identifier property.
 
 Note: If the source data does not have stable, unique IDs, then the connector will have to use some other means of identifying pieces of source data in a stable way. A cryptographic hash of the source data itself can work as a stable Id -- that is, it can be used to identify data that has not changed.
 
