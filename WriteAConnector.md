@@ -10,7 +10,7 @@ There are three main steps that a connector needs to undertake to bring data int
 
 - Extract data from the input source
 - Transform and align the data to the digital twin.
-- Generate [changesets](https://github.com/imodeljs/imodeljs/tree/master/docs/learning/iModelHub/index.md#the-timeline-of-changes-to-an-imodel) and load data into an iModel.
+- Generate [changesets](https://github.com/imodeljs/imodeljs/blob/master/docs/learning/iModelHub/index.md#the-timeline-of-changes-to-an-imodel) and load data into an iModel.
 
 The sections below give a high level overview of the various parts that go into creating an iTwin Connector.
 
