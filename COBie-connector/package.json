@@ -8,7 +8,7 @@
         "copyFiles": "npx babel src --out-dir lib --copy-files",
         "pretest": "cpx ./src/test/logging.config.json ./lib/test",
         "test": "npm run test:unit ",
-        "test:unit": "mocha --opts ./src/test/unit/mocha.opts \"./src/test/unit/**/*.test.ts*\"",
+        "test:unit": "mocha \"./src/test/unit/**/*.test.ts*\"",
         "test:integration": "npm run pretest && betools test --testDir=\"./lib/test/integration\"",
         "build": "tsc && npm run copyFiles",
         "clean": "rimraf lib",
@@ -63,5 +63,14 @@
         "nock": "^12.0.3",
         "tslint": "^5.20.1",
         "typescript": "^3.9.7"
+    },
+    "mocha": {
+        "require": [
+            "ts-node/register",
+            "jsdom-global/register",
+            "ignore-styles"
+        ],
+        "check-leaks": true,
+        "no-timeouts": true
     }
 }
