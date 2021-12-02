@@ -1,6 +1,6 @@
 # DEPRECATED: iTwin Connector
 
-This COBie Connector sample is deprecated.  Please refer to the new connector sample located at: https://github.com/iTwin/connector-samples
+This COBie Connector sample is deprecated.  Please refer to the [New Connector Sample](https://github.com/iTwin/connector-samples)
 
 Please refer to the general topic about [How to Write A Connector](./WriteAConnector.md)
 
